@@ -8,7 +8,15 @@ export const api = createApi({
     getApiByName: builder.query({
       query: () => "./posts",
     }),
+    
+    createPost : builder.mutation({
+      query: (newPost) => ({
+        url: "./posts",
+        method: "POST",
+        body: newPost
+      })
+    })
   }),
 });
 
-export const { useGetApiByNameQuery } = api;
+export const { useGetApiByNameQuery, useCreatePostMutation } = api;
