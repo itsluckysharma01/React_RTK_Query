@@ -6,17 +6,39 @@ export const api = createApi({
 
   endpoints: (builder) => ({
     getApiByName: builder.query({
-      query: () => "./posts",
+  query: () => "/posts",
     }),
-    
+
     createPost : builder.mutation({
       query: (newPost) => ({
-        url: "./posts",
+  url: "/posts",
         method: "POST",
         body: newPost
       })
+    }),
+
+    deletePost: builder.mutation({
+      query: (id) => ({
+        url: `/posts/${id}`,
+        method: "DELETE",
+      })
+    }),
+
+    updatePost: builder.mutation({
+      // expect the full updated post object: { id, ...fields }
+      query: (post) => ({
+        url: `/posts/${post.id}`,
+        method: "PUT",
+        body: post,
+      }),
     })
-  }),
+
+  })
 });
 
-export const { useGetApiByNameQuery, useCreatePostMutation } = api;
+export const { 
+  useGetApiByNameQuery, 
+  useCreatePostMutation, 
+  useDeletePostMutation,
+  useUpdatePostMutation,
+} = api;
